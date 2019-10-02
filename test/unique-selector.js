@@ -2,11 +2,18 @@ const jsdom = require( 'mocha-jsdom' );
 const expect = require( 'chai' ).expect;
 import unique from '../src';
 
-const $ = require( 'jquery' )( require( 'jsdom' ).jsdom().defaultView );
-
 describe( 'Unique Selector Tests', () =>
 {
-  jsdom( { skipWindowCheck : true } );
+  var $;
+  jsdom( {
+    skipWindowCheck : true,
+    url: "http://localhost"
+  });
+
+  before( () =>
+  {
+    $ = require( 'jquery' );
+  } );
 
   it( 'ID', () =>
   {
