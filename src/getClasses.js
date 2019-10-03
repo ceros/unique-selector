@@ -1,3 +1,5 @@
+import cssesc from 'cssesc';
+
 /**
  * Get class names for an element
  *
@@ -14,8 +16,7 @@ export function getClasses( el )
     try {
       let classList = Array.prototype.slice.call( el.classList )
 
-      // return only the valid CSS selectors based on RegEx
-      return classList.filter(item => !/^[a-z_-][a-z\d_-]*$/i.test( item ) ? null : item );
+      return classList;
     } catch (e) {
       let className = el.getAttribute( 'class' );
 
@@ -35,5 +36,9 @@ export function getClasses( el )
 export function getClassSelectors( el )
 {
   const classList = getClasses( el ).filter( Boolean );
-  return classList.map( cl => `.${cl}` );
+  return classList.map( cl => {
+    return '.' + cssesc(cl, {
+      'isIdentifier': true
+    });
+  });
 }
