@@ -2,11 +2,18 @@ const jsdom = require( 'mocha-jsdom' );
 const expect = require( 'chai' ).expect;
 import unique from '../src';
 
-const $ = require( 'jquery' )( require( 'jsdom' ).jsdom().defaultView );
-
 describe( 'Unique Selector Tests', () =>
 {
-  jsdom( { skipWindowCheck : true } );
+  var $;
+  jsdom( {
+    skipWindowCheck : true,
+    url: "http://localhost"
+  });
+
+  before( () =>
+  {
+    $ = require( 'jquery' );
+  } );
 
   it( 'ID', () =>
   {
@@ -23,7 +30,7 @@ describe( 'Unique Selector Tests', () =>
     $( 'body' ).append( '<div id="1so" class="test3"></div>' );
     const findNode = $( 'body' ).find( '.test3' ).get( 0 );
     const uniqueSelector = unique( findNode );
-    expect( uniqueSelector ).to.equal( '[id="1so"]' );
+    expect( uniqueSelector ).to.equal( '#\\31so' ); // 31 is Unicode for 1
   } );
 
   it( 'Class', () =>
@@ -62,22 +69,16 @@ describe( 'Unique Selector Tests', () =>
     expect( uniqueSelector ).to.equal( '.cc.cx' );
   } );
 
-  it( 'Classes with invalid name', () =>
+  it( 'Classes with urls', () =>
   {
-    $( 'body' ).get( 0 ).innerHTML = ''; //Clear previous appends
-    $( 'body' ).append( '<div class="test2 ca=1 cb cc cd cx"></div><div class="test2 ca=1 cb cc cd ce"></div><div class="test2 ca=1 cb cc cd cz"></div><div class="test2 ca=1 cb cd ce cf cx"></div>' );
-    const findNode = $( 'body' ).find( '.test2' ).get( 0 );
-    const uniqueSelector = unique( findNode );
-    expect( uniqueSelector ).to.equal( '.cc.cx' );
-  } );
+    const urlClass = 'http://api.example.com/v2.0/shenanigans';
+    const escapedClass = 'http\\:\\/\\/api\\.example\\.com\\/v2\\.0\\/shenanigans'
 
-  it( 'Classes with invalid name', () =>
-  {
     $( 'body' ).get( 0 ).innerHTML = ''; //Clear previous appends
-    $( 'body' ).append( "<div class='test2 ca{}1 cb cc cd cx'></div><div class='test2 ca{}1 cb cc cd ce'></div><div class='test2 ca{}1 cb cc cd cz'></div><div class='test2 ca=1 cb cd ce cf cx'></div>" );
-    const findNode = $( 'body' ).find( '.test2' ).get( 0 );
+    $( 'body' ).append( `<div class="test2 ca cb ${urlClass} cd cx"></div><div class="test2 ca cb ${urlClass} cd ce"></div><div class="test2 ca cb ${urlClass} cd ce"></div><div class="test2 ca cb cd ce cf cx"></div>` );
+    const findNode = $( 'body' ).find( 'div' ).get( 0 );
     const uniqueSelector = unique( findNode );
-    expect( uniqueSelector ).to.equal( '.cc.cx' );
+    expect( uniqueSelector ).to.equal( `.${escapedClass}.cx` );
   } );
 
   it( 'Tag', () =>

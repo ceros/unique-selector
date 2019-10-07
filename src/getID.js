@@ -1,3 +1,5 @@
+import cssesc from 'cssesc';
+
 /**
  * Returns the Tag of the element
  * @param  { Object } element
@@ -9,8 +11,9 @@ export function getID( el )
 
   if( id !== null && id !== '')
   {
-    // if the ID starts with a number selecting with a hash will cause a DOMException
-    return id.match(/^\d/) ? `[id="${id}"]` : '#' + id;
+    return '#' + cssesc(id, {
+      'isIdentifier': true
+    });
   }
   return null;
 }
