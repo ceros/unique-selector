@@ -14,7 +14,10 @@ This is particularly useful when tracking in custom variables in analytics:
 Fork status
 ------------
 
-This package is a fork of [unique-selector](https://www.npmjs.com/package/unique-selector). Updates include:
+This package is a fork of the [unique-selector](https://www.npmjs.com/package/unique-selector) npm package. The original source 
+code is available on GitHub at [ericclemmons/unique-selector](https://github.com/ericclemmons/unique-selector).
+
+Updates include:
  - escaping selectors to be valid for document.querySelector() 
 
 Installation
@@ -85,10 +88,34 @@ Releases
     - Launch of fork as a package
 
 
-- v0.4.1
+- v0.4.1 (fork)
 
     - Fork unique-selector package
     - Escape selectors
+    
+- v0.1.0
+
+    - Big refactor/rewrite using es6
+    - More test + Change the test script
+    - Script to compile es6 to es5 using babel
+    - Ability to pass options for the **selectorTypes** based on which the unique selector will be generated, see the options
+
+
+- v0.0.4
+
+    - Handle extra whitespace in `className` ([#9](https://github.com/ericclemmons/unique-selector/pull/9))
+
+- v0.0.3
+
+    - Add support for various `<form>` elements ([#2](https://github.com/ericclemmons/unique-selector/issues/2))
+
+- v0.0.2
+
+    - Fix bug with `nth-child` calculation
+
+- v0.0.1
+
+    - Initial release
 
 License
 -------
