@@ -1,10 +1,6 @@
 unique-selector
 ===============
 
-[![Build Status](https://travis-ci.org/ericclemmons/unique-selector.png)](https://travis-ci.org/ericclemmons/unique-selector)
-[![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)]()
-[![semantic-versioning](https://img.shields.io/badge/semantic%20-versioning-green.svg)]()
-
 Given a DOM node, return a unique CSS selector matching only that element.
 This is particularly useful when tracking in custom variables in analytics:
 
@@ -15,11 +11,19 @@ This is particularly useful when tracking in custom variables in analytics:
         _gaq.push(['_trackEvent', 'Engagement', 'Click', selector]);
     }, false);
 
+Fork status
+------------
+
+This package is a fork of the [unique-selector](https://www.npmjs.com/package/unique-selector) npm package. The original source 
+code is available on GitHub at [ericclemmons/unique-selector](https://github.com/ericclemmons/unique-selector).
+
+Updates include:
+ - escaping selectors to be valid for document.querySelector() 
 
 Installation
 ------------
 
-[![NPM](https://nodei.co/npm/unique-selector.png?mini=true)](https://nodei.co/npm/unique-selector/)
+[![NPM](https://nodei.co/npm/@ceros/unique-selector.png?mini=true)](https://nodei.co/npm/@ceros%2funique-selector/)
 
 Options
 ------------
@@ -75,19 +79,20 @@ Tests
 Contributing
 -----
 Feel free to open issues, make suggestions or send PRs.
-This project adheres to the Contributor Covenant [code of conduct](http://contributor-covenant.org/). By participating, you are expected to uphold this code.
-
-
-Contact
------
-
-Avraam Mavridis : [@avraamakis](https://twitter.com/avraamakis)
-
-Eric Clemmons : [@ericclemmons](https://twitter.com/ericclemmons)
 
 
 Releases
 --------
+- v1.0.0
+
+    - Launch of fork as a package
+
+
+- v0.4.1 (fork)
+
+    - Fork unique-selector package
+    - Escape selectors
+    
 - v0.1.0
 
     - Big refactor/rewrite using es6
@@ -111,8 +116,6 @@ Releases
 - v0.0.1
 
     - Initial release
-
-
 
 License
 -------
